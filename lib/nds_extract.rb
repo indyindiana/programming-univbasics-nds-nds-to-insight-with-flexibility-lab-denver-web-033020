@@ -1,5 +1,6 @@
 # Provided, don't edit
 require 'directors_database'
+require "pry"
 
 # A method we're giving you. This "flattens"  Arrays of Arrays so: [[1,2],
 # [3,4,5], [6]] => [1,2,3,4,5,6].
@@ -21,6 +22,8 @@ def flatten_a_o_a(aoa)
 end
 
 def movie_with_director_name(director_name, movie_data)
+  
+  
   { 
     :title => movie_data[:title],
     :worldwide_gross => movie_data[:worldwide_gross],
@@ -34,6 +37,19 @@ end
 # Your code after this point
 
 def movies_with_director_key(name, movies_collection)
+  
+  movies_by_director = []
+  
+  director_index = 0 
+  
+  while director_index < movies_collection.length do
+    movie_data = movies_collection[director_index]
+    movies_by_director << movie_with_director_name(name, movie_data)
+    director_index += 1
+    
+  end
+  return movies_by_director
+  
   # GOAL: For each Hash in an Array (movies_collection), provide a collection
   # of movies and a directors name to the movie_with_director_name method
   # and accumulate the returned Array of movies into a new Array that's
@@ -52,6 +68,21 @@ end
 
 
 def gross_per_studio(collection)
+  gross_studio = {}
+  movie_index = 0 
+  while movie_index < collection.length do
+    if gross_studio[collection[movie_index][:studio]]
+       gross_studio[collection[movie_index][:studio]] += collection[movie_index][:worldwide_gross]
+    else 
+      gross_studio[collection[movie_index][:studio]] = collection[movie_index][:worldwide_gross]
+    end
+    movie_index += 1 
+  end
+  return gross_studio
+      
+
+  
+  
   # GOAL: Given an Array of Hashes where each Hash represents a movie,
   # return a Hash that includes the total worldwide_gross of all the movies from
   # each studio.
@@ -66,6 +97,14 @@ def gross_per_studio(collection)
 end
 
 def movies_with_directors_set(source)
+  movies_with_directors_set = []
+  directors_movies = []
+  array_index = 0
+  
+  while array_index_index < source.length do 
+    director_index = 0 
+    while movies_with_directors_set[director_index][:name] 
+  binding.pry
   # GOAL: For each director, find their :movies Array and stick it in a new Array
   #
   # INPUT:
